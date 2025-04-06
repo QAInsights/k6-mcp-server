@@ -23,7 +23,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/k6-mcp-server.git
+git clone https://github.com/qainsights/k6-mcp-server.git
 ```
 
 2. Install the required dependencies:
@@ -59,10 +59,10 @@ export default function () {
 {
   "mcpServers": {
     "k6": {
-      "command": "/Users/naveenkumar/.local/bin/uv",
+      "command": "/path/to/bin/uv",
       "args": [
         "--directory",
-        "/Users/naveenkumar/Gits/k6-mcp-server",
+        "/path/to/k6-mcp-server",
         "run",
         "k6_server.py"
       ]
@@ -100,6 +100,11 @@ execute_k6_test_with_options(
     vus: int
 )
 ```
+
+## ✨ Use cases
+
+- LLM powered results analysis
+- Effective debugging of load tests
 
 ## 🤝 Contributing
 
