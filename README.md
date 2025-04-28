@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/mseep-audited.png)](https://mseep.ai/app/qainsights-k6-mcp-server)
+
 # 🚀 ⚡️ k6-mcp-server
 
 A Model Context Protocol (MCP) server implementation for running k6 load tests.
