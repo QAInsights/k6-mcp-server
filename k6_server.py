@@ -1,5 +1,4 @@
-from typing import Any
-import subprocess
+import asyncio
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
 
@@ -48,19 +47,27 @@ async def run_k6_script(script_file: str, duration: str = "30s", vus: int = 10) 
         # Print the full command for debugging
         print(f"Executing command: {' '.join(cmd)}")
         
-        # Run the command and capture output
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        
+        # Run the command asynchronously and capture output
+        process = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+
+        stdout_bytes, stderr_bytes = await process.communicate()
+        stdout = stdout_bytes.decode()
+        stderr = stderr_bytes.decode()
+
         # Print output for debugging
         print(f"\nCommand output:")
-        print(f"Return code: {result.returncode}")
-        print(f"Stdout: {result.stdout}")
-        print(f"Stderr: {result.stderr}")
+        print(f"Return code: {process.returncode}")
+        print(f"Stdout: {stdout}")
+        print(f"Stderr: {stderr}")
 
-        if result.returncode != 0:
-            return f"Error executing k6 test:\n{result.stderr}"
-        
-        return result.stdout
+        if process.returncode != 0:
+            return f"Error executing k6 test:\n{stderr}"
+
+        return stdout
 
     except Exception as e:
         return f"Unexpected error: {str(e)}"
@@ -88,4 +95,4 @@ async def execute_k6_test_with_options(script_file: str, duration: str, vus: int
     return await run_k6_script(script_file, duration, vus)
 
 if __name__ == "__main__":
-    mcp.run(transport='stdio') 
+    mcp.run(transport='stdio')

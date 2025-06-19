@@ -29,7 +29,7 @@ git clone https://github.com/qainsights/k6-mcp-server.git
 2. Install the required dependencies:
 
 ```bash
-uv pip install -r requirements.txt
+ uv pip install -r requirements.txt
 ```
 
 3. Set up environment variables (optional):
@@ -38,6 +38,14 @@ uv pip install -r requirements.txt
 ```bash
 K6_BIN=/path/to/k6  # Optional: defaults to 'k6' in system PATH
 ```
+
+4. Start the server and choose the LLM model when prompted or pass it with ``--model``:
+
+```bash
+python main.py --model gpt-4
+```
+
+   If ``--model`` is omitted, the script checks ``SELECTED_MODEL`` or prompts you interactively. Valid options are ``gpt-4``, ``gpt-3.5-turbo`` and ``claude-3``.
 
 ## 🚀 Getting Started
 
